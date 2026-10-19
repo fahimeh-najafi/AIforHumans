@@ -1,5 +1,5 @@
 import { database, isAdmin } from "../../lib/server.mjs";
-import { exportCsv } from "../../lib/validation.mjs";
+import { exportCsv } from "../../lib/export.mjs";
 import { loadQuestionnaires } from "../../lib/questions.mjs";
 
 export const runtime = "nodejs";

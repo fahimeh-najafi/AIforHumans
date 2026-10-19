@@ -8,7 +8,7 @@ A small bilingual questionnaire: participant details → twelve questions, one a
 - Supabase PostgreSQL through server-side REST requests; one `submissions` table.
 - `react-markdown` renders the existing questionnaire text without executing raw HTML.
 - [Participant UI](./app/survey.jsx), [submission endpoint](./app/api/submission/route.js), [private admin](./app/admin/route.js).
-- [Question loader](./lib/questions.mjs), [validation and export](./lib/validation.mjs), [server/database helpers](./lib/server.mjs).
+- [Question loader](./lib/questions.mjs), [validation](./lib/validation.mjs), [CSV export](./lib/export.mjs), [server/database helpers](./lib/server.mjs).
 
 ## Local setup
 

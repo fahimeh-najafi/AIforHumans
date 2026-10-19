@@ -2,7 +2,8 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { loadQuestionnaires, parseQuestionnaire } from "../lib/questions.mjs";
-import { validateProfile, validateAnswer, validateCompletion, csvCell, exportCsv } from "../lib/validation.mjs";
+import { validateProfile, validateAnswer, validateCompletion } from "../lib/validation.mjs";
+import { csvCell, exportCsv } from "../lib/export.mjs";
 
 const { content, version } = loadQuestionnaires();
 const blank = () => ({ choices: [], text: "", followup: "", attraction: "", concern: "" });
