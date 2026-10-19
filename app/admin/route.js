@@ -71,7 +71,8 @@ export async function GET(request) {
     const rows = await database(`?select=${select}&order=started_at.desc,id.desc${filter}&limit=50&offset=${page * 50}`);
     const table = rows.map((row) => `<tr><td><a href="/admin?id=${escape(row.id)}">${escape(row.first_name)} ${escape(row.last_name)}</a></td><td>${escape(row.email)}</td><td>${escape(row.age)}</td><td>${escape(row.language)}</td><td>${row.completed_at ? "Completed" : `${Object.keys(row.answers).length}/12 saved`}</td><td>${escape(row.started_at)}</td></tr>`).join("");
     return html(`<h1>Workshop responses</h1><p>Private organizer area · ${escape(status.replaceAll("_", " "))} · page ${page + 1}</p><nav><a href="/admin">All</a><a href="/admin?status=completed">Completed</a><a href="/admin?status=in_progress">In progress</a></nav><nav><a href="/admin?format=csv&amp;status=${status}">Download CSV</a><a href="/admin?format=csv&amp;deidentified=1&amp;status=${status}">CSV without names and emails</a></nav><small>Exports include all matching pages. Free-text answers can still contain identifying information.</small><div class="table-wrap"><table><thead><tr><th>Participant</th><th>Email</th><th>Age</th><th>Language</th><th>Status</th><th>Started (UTC)</th></tr></thead><tbody>${table || '<tr><td colspan="6">No responses yet.</td></tr>'}</tbody></table></div><nav>${page ? `<a href="/admin?status=${status}&amp;page=${page - 1}">Previous page</a>` : ""}${rows.length === 50 ? `<a href="/admin?status=${status}&amp;page=${page + 1}">Next page</a>` : ""}</nav>`);
-  } catch {
+  } catch (error) {
+    console.error("admin request failed", error);
     return html("<h1>Could not load responses</h1><p>Check the database connection and server configuration, then try again.</p>", 503);
   }
 }
