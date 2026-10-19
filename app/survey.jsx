@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Markdown from "react-markdown";
-import { validateAnswer } from "../lib/validation.mjs";
+import { validateAnswer, OTHER_CHOICE } from "../lib/validation.mjs";
 
 const labels = {
   en: {
@@ -242,7 +242,7 @@ export default function Survey({ content, questionnaireVersion, privacyContact }
               })}
             </div>
             {question.kind === "text" && textarea("text", text.response, true)}
-            {question.id === "q09" && textarea("text", text.own, !answer.choices.length || answer.choices.includes("7"))}
+            {question.id === "q09" && textarea("text", text.own, !answer.choices.length || answer.choices.includes(OTHER_CHOICE))}
             {question.followup && <div className="followup"><Markdown>{question.followup}</Markdown>{textarea("followup", text.response)}</div>}
             {question.closingPrompts.map((prompt, index) => <div key={prompt} className="followup">{textarea(index === 0 ? "attraction" : "concern", prompt)}</div>)}
             {error && <p className="error" role="alert">{errorMessage}</p>}

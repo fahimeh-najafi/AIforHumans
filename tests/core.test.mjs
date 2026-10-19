@@ -26,6 +26,13 @@ test("both languages have twelve aligned questions and no facilitator guide", ()
   }
 });
 
+test("reordering questions in the markdown fails loudly instead of misapplying rules", () => {
+  const source = readFileSync("language-models-workshop-questionnaire.md", "utf8").replace(/\r\n/g, "\n");
+  const [head, ...sections] = source.split(/^(?=## )/m);
+  [sections[7], sections[8]] = [sections[8], sections[7]];
+  assert.throws(() => parseQuestionnaire([head, ...sections].join("")), /something else/);
+});
+
 test("content is unchanged by Windows versus Unix line endings", () => {
   const source = readFileSync("language-models-workshop-questionnaire.md", "utf8").replace(/\r\n/g, "\n");
   assert.deepEqual(parseQuestionnaire(source), parseQuestionnaire(source.replaceAll("\n", "\r\n")));
